@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const connectDB = require("./config/db");
 // const erroeHandler = require("./middleware/error");
 const cors = require("cors");
+// const { Socket } = require("dgram");
 
 connectDB();
 
@@ -17,10 +18,30 @@ app.use(cors());
 // app.use("/game", require("./routes/game"));
 
 app.use("/api/auth", require("./routes/auth"));
-// app.use("/api/private", require("routes/private"));
+app.use("/api/private", require("./routes/private"));
 
 // app.use(erroeHandler);
 
 const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: { origin: `${process.env.FRONTEND_URL}`, methods: ["GET", "POST"] },
+});
+
+io.on("connection", (socket) => {
+  const id = socket.handshake.query.username;
+  socket.join(id);
+
+  socket.on("sendChallange", (data) => {
+    socket.broadcast.to(data.id).emit("recieveChallange", data.sender);
+  });
+
+  socket.on("acceptChallange", (data) => {
+    socket.broadcast.to(data.id).emit("acceptedChallange", data.sender);
+  });
+  socket.on("sendMessage", (data) => {
+    socket.broadcast.to(data.id).emit("recieveMessage", data.message);
+  });
+});
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
