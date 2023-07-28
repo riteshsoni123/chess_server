@@ -46,6 +46,15 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", (data) => {
     socket.broadcast.to(data.id).emit("recieveMessage", data.message);
   });
+  socket.on("sendCoinToss", (data) => {
+    // console.log("recieved coin toss", data);
+    socket.broadcast.to(data.id).emit("recieveCoinToss", data.sender);
+  });
+
+  socket.on("sendMoves", (data) => {
+    // console.log("recieved coin toss", data);
+    socket.broadcast.to(data.id).emit("recievedMoves", data);
+  });
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
