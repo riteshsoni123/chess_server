@@ -39,6 +39,10 @@ io.on("connection", (socket) => {
   socket.on("acceptChallange", (data) => {
     socket.broadcast.to(data.id).emit("acceptedChallange", data.sender);
   });
+  socket.on("declineChallange", (data) => {
+    // console.log("reached at decline challange");
+    socket.broadcast.to(data.id).emit("declineChallange", data.sender);
+  });
   socket.on("sendMessage", (data) => {
     socket.broadcast.to(data.id).emit("recieveMessage", data.message);
   });
