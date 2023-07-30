@@ -23,18 +23,77 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
-  won: {
-    type: Number,
-    default: 0,
+  firstname: {
+    type: String,
+    maxlength: 20,
+    default: "",
   },
-  lost: {
-    type: Number,
-    default: 0,
+  lastname: {
+    type: String,
+    maxlength: 20,
+    default: "",
   },
-  drawn: {
-    type: Number,
-    default: 0,
+  location: {
+    type: String,
+    maxlength: 20,
+    default: "",
   },
+  country: {
+    type: String,
+    maxlength: 20,
+    default: "",
+  },
+  language: {
+    type: String,
+    maxlength: 20,
+    default: "",
+  },
+  twitter: {
+    type: String,
+    default: "",
+  },
+  facebook: {
+    type: String,
+    default: "",
+  },
+  instagram: {
+    type: String,
+    default: "",
+  },
+  aboutme: {
+    type: String,
+    maxlength: 200,
+    default: "",
+  },
+  overall: {
+    played: {
+      type: Number,
+      default: 0,
+    },
+    won: {
+      type: Number,
+      default: 0,
+    },
+    lost: {
+      type: Number,
+      default: 0,
+    },
+  },
+  white: {
+    played: {
+      type: Number,
+      default: 0,
+    },
+    won: {
+      type: Number,
+      default: 0,
+    },
+    lost: {
+      type: Number,
+      default: 0,
+    },
+  },
+
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });
