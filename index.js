@@ -55,6 +55,15 @@ io.on("connection", (socket) => {
     // console.log("recieved coin toss", data);
     socket.broadcast.to(data.id).emit("recievedMoves", data);
   });
+  socket.on("offerDraw", (data) => {
+    socket.broadcast.to(data.id).emit("recieveDrawOffer", data);
+  });
+  socket.on("acceptDraw", (data) => {
+    socket.broadcast.to(data.id).emit("drawAccepted", data);
+  });
+  socket.on("userResigned", (data) => {
+    socket.broadcast.to(data.id).emit("opponentResigned", data);
+  });
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
