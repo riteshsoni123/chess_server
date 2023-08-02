@@ -7,4 +7,6 @@ router.route("/").get(protect, getPrivateData);
 
 router.route("/editdetail/:id").post(protect, editDetails);
 
+// router.route("updateStats").post()
+
 module.exports = router;
